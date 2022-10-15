@@ -1,6 +1,7 @@
     package com.example.implicitsi5a;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ShareCompat;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -45,14 +46,20 @@ import java.net.URI;
         btnBukaLokasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getLokasi = etLokasi.getText().toString();
 
+                Uri location = Uri.parse("geo:0,0?q=" + getLokasi);
+                Intent bukaLokasi = new Intent(Intent.ACTION_VIEW, location);
+                startActivity(bukaLokasi);
             }
         });
 
         btnBagikanTeks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                getTeks = etTeks.getText().toString();
+                String mimeType = "text/plain";
+                new ShareCompat.IntentBuilder(MainActivity.this).setType(mimeType).setChooserTitle("Bagikan Teks ini").setText(getTeks).startChooser();
             }
         });
     }
